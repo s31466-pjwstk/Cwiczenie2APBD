@@ -3,13 +3,13 @@ namespace Cwiczenie2APBD;
 public class Laptop : Sprzet
 {
     private double pamiec;
-    private double iloscRAM;
-    private string OS;
+    private double iloscRam;
+    private string systemOperacyjny;
 
-    public Laptop(string nazwa, string producent, double pamiec, double iloscRAM, string OS) : base(nazwa, producent)
+    public Laptop(string nazwa, string producent, double pamiec, double iloscRam, string systemOperacyjny) : base(nazwa, producent)
     {
         this.pamiec = pamiec;
-        this.iloscRAM = iloscRAM;
-        this.OS = OS;
+        this.iloscRam = iloscRam;
+        this.systemOperacyjny = systemOperacyjny;
     }
 }

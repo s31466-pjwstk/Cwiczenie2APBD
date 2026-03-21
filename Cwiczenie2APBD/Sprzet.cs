@@ -7,7 +7,7 @@ public class Sprzet
     private static List<Sprzet> lista = new List<Sprzet>();
     private int id;
     protected string nazwa;
-    protected bool czyDostepny = true;
+    private bool czyDostepny = true;
     protected string producent;
     
     public Sprzet(string nazwa, string producent)
@@ -19,31 +19,37 @@ public class Sprzet
         lista.Add(this);
     }
 
-    
-    public static void getListaSprzetow()
+
+    public static List<Sprzet> getListaSprzetow()
     {
-        foreach(Sprzet s in lista)
-            Console.WriteLine($"{s} | Dostępny: {s.czyDostepny}");
+        List<Sprzet> listaSprzetow = new List<Sprzet>();
+        foreach (Sprzet s in lista)
+        {
+            Console.WriteLine($"{s} | Dostępny: {s.czyDostepny}"); 
+            listaSprzetow.Add(s);
+        }
+        return listaSprzetow;
     }
 
-    public static void getDostepnySprzet()
+    public static List<Sprzet> getDostepnySprzet()
     {
+        List<Sprzet> listaSprzetow = new List<Sprzet>();
         foreach (Sprzet s in lista)
         {
             if (s.czyDostepny == true)
+            {
                 Console.WriteLine($"{s} | Dostępny: {s.czyDostepny}");
-            
+                listaSprzetow.Add(s);
+            }
+
         }
+        return listaSprzetow;
     }
 
-    public void ustawNieDostepny()
-    {
-        this.czyDostepny = false;
-    }
+    public void ustawNieDostepny() { this.czyDostepny = false; }
+
+    public bool getDostepnosc() { return this.czyDostepny; }
     
-    public override string ToString()
-    {
-        return nazwa + " " + producent;
-    }
+    public override string ToString() { return nazwa + " " + producent; }
     
 }

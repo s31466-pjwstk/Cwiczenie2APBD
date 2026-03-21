@@ -2,12 +2,12 @@ namespace Cwiczenie2APBD;
 
 public class Projektor : Sprzet
 {
-    private int jasnoscANSI;
+    private int jasnoscAnsi;
     private string technologiaWyswietlania;
 
     public Projektor(string nazwa, string producent, int jasnoscAnsi, string technologiaWyswietlania) : base(nazwa, producent)
     {
-        this.jasnoscANSI = jasnoscAnsi;
+        this.jasnoscAnsi = jasnoscAnsi;
         this.technologiaWyswietlania = technologiaWyswietlania;
     }
 }
