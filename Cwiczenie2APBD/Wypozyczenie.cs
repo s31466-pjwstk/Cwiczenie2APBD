@@ -5,7 +5,6 @@ public class Wypozyczenie
     private UzytkownikSystemu osoba;
     private Sprzet sprzet;
     private DateTime dataWypozyczenia;
-    private TimeSpan okresWypozyczenia = TimeSpan.FromDays(14);
     private DateTime oczekiwanaDataZwrotu;
     private DateTime rzeczywistaDataZwrotu;
     private double oplata;
@@ -16,15 +15,14 @@ public class Wypozyczenie
     {
         try
         {
-            if ((osoba.getRodzajUzytkownika() == RodzajUzytkownika.Student && Wypozyczenie.AktywneWypozyczenia(osoba).Count() < 2) ||
-                (osoba.getRodzajUzytkownika() == RodzajUzytkownika.Pracownik && Wypozyczenie.AktywneWypozyczenia(osoba).Count() < 5))
+            if(Serwis.WarunekWypozyczenia(osoba))
             {
                 if (sprzet.getDostepnosc() == true)
                 {
                     this.osoba = osoba;
                     this.sprzet = sprzet;
                     this.dataWypozyczenia = dataWypozyczenia;
-                    this.oczekiwanaDataZwrotu = dataWypozyczenia + okresWypozyczenia;
+                    this.oczekiwanaDataZwrotu = Serwis.OkresDarmowegoWypozyczenia(dataWypozyczenia);
                     wypozyczenia.Add(this);
                 }
                 else
@@ -45,13 +43,13 @@ public class Wypozyczenie
         TimeSpan ts = rzeczywistaDataZwrotu - oczekiwanaDataZwrotu;
         if (rzeczywistaDataZwrotu == oczekiwanaDataZwrotu || ts.Days < 1)
         {
-            oplata = 0.0;
+            oplata = Serwis.WyliczOplate(ts);
             czyZwrotTerminowy = true;
             return $"Oplata wynosi: {oplata} PLN";
         }
         else
         {
-            oplata = ts.Days * 0.5; //Reguła naliczania opłat
+            oplata = Serwis.WyliczOplate(ts);
             czyZwrotTerminowy = false;
             return $"Oplata wynosi: {oplata} PLN";
         }
