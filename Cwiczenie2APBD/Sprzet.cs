@@ -46,7 +46,7 @@ public class Sprzet
         return listaSprzetow;
     }
 
-    public void ustawNieDostepny() { this.czyDostepny = false; }
+    public void ustawCzyDostepny(bool b) { this.czyDostepny = b; }
 
     public bool getDostepnosc() { return this.czyDostepny; }
     

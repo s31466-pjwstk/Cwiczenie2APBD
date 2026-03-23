@@ -4,8 +4,8 @@ public class Serwis
 {
     public static bool WarunekWypozyczenia(UzytkownikSystemu osoba)
     {
-        return ((osoba.getRodzajUzytkownika() == RodzajUzytkownika.Student && Wypozyczenie.AktywneWypozyczenia(osoba).Count() < 2) ||
-         (osoba.getRodzajUzytkownika() == RodzajUzytkownika.Pracownik && Wypozyczenie.AktywneWypozyczenia(osoba).Count() < 5));
+        return ((osoba.getRodzajUzytkownika() == RodzajUzytkownika.Student && Wypozyczenie.getAktywneWypozyczenia(osoba).Count() < 2) ||
+         (osoba.getRodzajUzytkownika() == RodzajUzytkownika.Pracownik && Wypozyczenie.getAktywneWypozyczenia(osoba).Count() < 5));
     }
 
     public static double WyliczOplate(TimeSpan ts)
