@@ -81,12 +81,12 @@ public class Wypozyczenie
         }
     }
     
-    public static List<Wypozyczenie> PrzeterminowaneWypozyczenia(UzytkownikSystemu osoba)
+    public static List<Wypozyczenie> PrzeterminowaneWypozyczenia()
     {
         List<Wypozyczenie> listaWyporzyczen = new List<Wypozyczenie>();
         foreach (Wypozyczenie w in wypozyczenia)
         {
-            if (w.osoba == osoba && w.czyZwrotTerminowy==null)
+            if (w.czyZwrotTerminowy==null)
             {
                 TimeSpan ts = w.oczekiwanaDataZwrotu - DateTime.Now;
                 if (ts.Days < 0)

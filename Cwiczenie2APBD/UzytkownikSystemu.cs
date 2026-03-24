@@ -3,7 +3,7 @@ namespace Cwiczenie2APBD;
 public class UzytkownikSystemu
 {
     private int id;
-    private int uzytkownicy;
+    private static int uzytkownicy;
     private RodzajUzytkownika rodzajUzytkownika;
     private string imie;
     private string nazwisko;
@@ -12,7 +12,7 @@ public class UzytkownikSystemu
     {
         this.rodzajUzytkownika = rodzajUzytkownika;
         this.imie = imie;
-        this.nazwisko = this.nazwisko;
+        this.nazwisko = nazwisko;
         this.id = uzytkownicy+1;
         uzytkownicy++;
     }
