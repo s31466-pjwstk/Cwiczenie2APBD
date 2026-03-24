@@ -1,0 +1,17 @@
+Aplikacja konsolowa służąca do zarządzania procesem wypożyczania sprzętu przez studentów i pracowników uczelni. 
+  System kontroluje limity wypożyczeń, dostępność sprzętów oraz nalicza kary za przeterminowane zwroty.
+
+Struktura i decyzje projektowe:
+	Zgodnie z wymaganiami projektowymi, kod został podzielony na wiele klas w celu zapewnienia niskiego sprzężenia i wysokiej spójności kodu.
+	
+Sprzęt jako klasa przechowuje wspólne cechy (ID, nazwa, producent, status dostępności).Laptop, Kamera, Projektor klasy wyspecjalizowane, rozszerzające model o dane techniczne (np. RAM, FPS, jasność ANSI). Wykorzystałem tu dziedziczenie, dbając o kohezję klas, dane w każdej z nich są związane ściśle z tym konkretnym typem urządzenia, jednocześnie zachowując powiązanie między typami, które mają wiele cech wspólnych i przez system traktowane są jako sprzęt do wypożyczeń. Klasa Sprzęt nie jest abstrakcyjna, ponieważ wysoce prawdopodobne będą urządzenia o innych nie zdefiniowanych przez system typach.
+	
+UżytkownikSystemu: Reprezentuje osobę korzystającą z systemu wraz z jej uprawnieniami (Student/Pracownik). Nie zdecydowałem się na użycie dziedziczenia, ze względu na brak cech różniących użytkowników, które wymagałyby przechowywania w osobnych polach. Dla systemu ważne są tylko (id, imię, nazwisko), które są cechami wspólnymi użytkowników. System potrzebuje rozróżniać użytkowników tylko ze względu na różne limity wypożyczeni, co rozwiązuje klasa Serwis.
+
+Wypożyczenie: Obiekt wiążący użytkownika ze sprzętem, przechowujący daty oraz status zwrotu. Na potrzeby prezentacji funkcjonalności (np. przeterminowań), obiekt przyjmuje zadaną datę wypożyczenia zamiast przypisywać aktualną datę systemową. Ze względu na komunikację systemu przez konsolę, metody samodzielnie  drukują wynik na konsoli, jednocześnie dla przyszłego rozwoju aplikacji, zwracają listę obiektów które wypisują. Wyjątkiem jest metoda aktywne wypożyczenia która używana jest do logiki biznesowej, dlatego potrzebowałem rozróżnić dwie metody, pierwszą zwracającą aktywne wypożyczenia użytkownika, oraz drugą wypisującą odpowiedź na konsolę, bez zwracania obiektów. Postanowiłem większość logiki konstruktora Wypozyczenie pozostawić w konstruktorze, zamiast tworzenia obiektu z klasy Serwis, ponieważ wywoływanie konstruktora z klasy Serwis wiązałoby się z pozostawieniem konstruktora public, co stwarza zagrożenie omijania logiki używając konstruktora bezpośrednio.
+
+Klasa Serwis (logika biznesowa):klasa Serwis odpowiada wyłącznie za decyzje logiczne: sprawdzanie limitów wypożyczeń (2 dla studenta, 5 dla pracownika), okres darmowego wypożyczenia oraz wyliczanie opłat według zdefiniowanych reguł. Zmiana stawek kar, okresu darmowego wypożyczenia jak i limitów dla poszczególnych użytkowników, odbywa się w jednym miejscu w kodzie, co ułatwia ewentualne zmiany w systemie, np. zmienienie limitu wypożyczeń dla konkretnego użytkownika, zmienienie warunków naliczania kary czy zmiany długości trwania darmowego wypożyczenia.
+
+Obsługa Błędów: system jawnie obsługuje błędy poprzez własne klasy wyjątków (SprzetNiedostepnyException, ZaDuzoWypozyczenException) pozwalają na przerwanie niepoprawnej operacji użytkownika bez przerywania działania aplikacji. W tym momencie nie było niezbędne stworzenie własnych wyjątków, natomiast w przypadku rozwoju aplikacji taka potrzeba mogłaby zajść dlatego uznałem to za dobrą praktykę.
+	
+Przykładowy Scenariusz Demonstracyjny w klasie Program.cs zgodny z wymaganiami w pliku PDF.
